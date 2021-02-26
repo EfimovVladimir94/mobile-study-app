@@ -14,10 +14,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
 
-//    @Query("SELECT u FROM User u WHERE u.status = 1")
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("update User u set u.password = :password where u.email = :email")
-    void update (String email, String password);
+    void update(String email, String password);
 
 }

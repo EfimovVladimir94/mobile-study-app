@@ -1,14 +1,13 @@
 package com.study.mobileback.controller;
 
 import com.study.mobileback.dto.UserDto;
+import com.study.mobileback.entity.User;
 import com.study.mobileback.service.UserRegistrationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -16,13 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserMainController {
 
     private final UserRegistrationService userRegistrationService;
-
-//    @RequestMapping(value = "/accounts", method = RequestMethod.GET)
-//    public ResponseEntity<?> getAccount() {
-//        List<Account> accounts = repository.findAll();
-//        log.debug("accounts : {} ", accounts);
-//        return new ResponseEntity<>(accounts, HttpStatus.OK);
-//    }
 
     @PostMapping(path = "/v1/registration")
     public ResponseEntity<?> registration(@RequestBody UserDto userDto) {
@@ -45,4 +37,12 @@ public class UserMainController {
         return new ResponseEntity<>(recoveryResult, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/v1/email")
+    public String checkEmail(@RequestParam String email) {
+        User existUser = userRegistrationService.getExistUser(email);
+        if (existUser == null) {
+            return "Ура! E-mail свободен! Идем дальше...";
+        }
+        return "Такой e-mail занят :(";
+    }
 }
