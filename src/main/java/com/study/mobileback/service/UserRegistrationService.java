@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static com.study.mobileback.Util.DataMapper.registrationDtoToUser;
-
+import static com.study.mobileback.Util.DataMapper.userDtoToUser;
 
 @Service
 @Slf4j
@@ -24,7 +23,7 @@ public class UserRegistrationService {
 
     public boolean registration(UserDto dto) {
         if (validation(dto)) {
-            User user = registrationDtoToUser(dto);
+            User user = userDtoToUser(dto);
             User existUser = getExistUser(dto.getEmail());
             if (existUser == null) {
                 encodePass(user);
@@ -53,7 +52,7 @@ public class UserRegistrationService {
     public boolean recovery(UserDto userDto) {
         User existUser = getExistUser(userDto.getEmail());
         if (existUser != null) {
-            User user = registrationDtoToUser(userDto);
+            User user = userDtoToUser(userDto);
             encodePass(user);
             repository.update(user.getEmail(), user.getPassword());
             return true;
