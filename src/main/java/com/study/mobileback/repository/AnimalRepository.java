@@ -10,9 +10,6 @@ import java.util.List;
 
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
-//    @Query("from Animal a where a.user.id = :#{#userId} and a.name = :#{#name}")
-//    Animal findByUserIdAndName(Long userId, String name);
-//
     List<Animal> findByUserId(Long userId);
 
     @Transactional

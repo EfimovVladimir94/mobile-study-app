@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RestController
 @AllArgsConstructor
@@ -17,7 +19,7 @@ public class UserMainController {
     private final UserRegistrationService userRegistrationService;
 
     @PostMapping(path = "/v1/registration")
-    public ResponseEntity<?> registration(@RequestBody UserDto userDto) {
+    public ResponseEntity<?> registration(@Valid @RequestBody UserDto userDto) {
         boolean registration = userRegistrationService.registration(userDto);
         log.debug("registration complete : {} ", registration);
         return new ResponseEntity<>(registration, HttpStatus.OK);

@@ -22,7 +22,6 @@ public class UserRegistrationService {
     private String salt = "wZOAmOsv2Q7oL66FKwKzb7U2t4IZCQ";
 
     public boolean registration(UserDto dto) {
-        if (validation(dto)) {
             User user = userDtoToUser(dto);
             User existUser = getExistUser(dto.getEmail());
             if (existUser == null) {
@@ -30,15 +29,7 @@ public class UserRegistrationService {
                 repository.save(user);
                 return true;
             }
-        }
         return false;
-    }
-
-    private static boolean validation (UserDto dto) {
-        if (dto.getEmail().isEmpty() || dto.getEmail().isBlank()) {
-            return false;
-        }
-        return true;
     }
 
     public boolean authorization(UserDto userDto) {

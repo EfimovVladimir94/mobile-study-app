@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RestController
 @AllArgsConstructor
@@ -24,7 +26,7 @@ public class AnimalController {
     }
 
     @PostMapping(path = "/v1/editAnimal")
-    public ResponseEntity<?> editAnimal(@RequestBody AnimalDto animalDto) {
+    public ResponseEntity<?> editAnimal(@Valid @RequestBody AnimalDto animalDto) {
         animalService.editAnimal(animalDto);
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
