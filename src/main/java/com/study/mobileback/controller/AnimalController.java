@@ -32,8 +32,8 @@ public class AnimalController {
     }
 
     @DeleteMapping(value = "/v1/animal/{id}")
-    public ResponseEntity<?> deleteAnimal(@PathVariable Long id) {
-        boolean deleted = animalService.deleteAnimal(id);
+    public ResponseEntity<?> deleteAnimal(@PathVariable Long id, @RequestParam Long userId) {
+        boolean deleted = animalService.deleteAnimal(id, userId);
         return new ResponseEntity<>(deleted, HttpStatus.OK);
     }
 

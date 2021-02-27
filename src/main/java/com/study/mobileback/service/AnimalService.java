@@ -42,12 +42,18 @@ public class AnimalService {
         return false;
     }
 
-    public boolean deleteAnimal(Long id) {
+    public boolean deleteAnimal(Long id, Long userId) {
         Animal existAnimal = getExistAnimal(id);
+
         if (existAnimal != null) {
-            repository.deleteById(id);
-            log.info("delete animal for id: {} success", id);
-            return true;
+            boolean isOwnerUser = existAnimal.getUser().getId().longValue() == userId.longValue();
+            if (isOwnerUser) {
+                repository.deleteById(id);
+                log.info("delete animal for id: {} success", id);
+                return true;
+            }
+            log.info("an attempt to delete a wrong object");
+            return false;
         }
         log.info("delete animal for id: {} failed, existAnimal = null", id);
         return false;
