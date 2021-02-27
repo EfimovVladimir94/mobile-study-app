@@ -1,7 +1,7 @@
 package com.study.mobileback.dto;
 
-import com.study.mobileback.entity.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,8 +12,10 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnimalDto {
+@Builder
+public class AnimalInfoDto {
 
+    @NotNull
     private Long id;
     @NotBlank
     @NotEmpty
@@ -30,5 +32,4 @@ public class AnimalDto {
     @NotBlank
     @NotEmpty
     private String description;
-    private User user;
 }

@@ -7,6 +7,7 @@ import com.study.mobileback.entity.User;
 import com.study.mobileback.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,23 +20,28 @@ public class UserRegistrationService {
 
     @Autowired
     private UserRepository repository;
-    private String salt = "wZOAmOsv2Q7oL66FKwKzb7U2t4IZCQ";
+    @Value("${app.cypher.salt.value}")
+    private String salt;
 
     public boolean registration(UserDto dto) {
-            User user = userDtoToUser(dto);
-            User existUser = getExistUser(dto.getEmail());
-            if (existUser == null) {
-                encodePass(user);
-                repository.save(user);
-                return true;
-            }
+        User user = userDtoToUser(dto);
+        User existUser = getExistUser(dto.getEmail());
+        if (existUser == null) {
+            encodePass(user);
+            repository.save(user);
+            log.info("User id: {} save success", user.getId());
+            return true;
+        }
+        log.info("User id: {} save failure. User exist", user.getId());
         return false;
     }
 
     public boolean authorization(UserDto userDto) {
         User existUser = getExistUser(userDto.getEmail());
         if (existUser != null) {
-            return PasswordUtils.verifyUserPassword(userDto.getPassword(), existUser.getPassword(), salt);
+            boolean authorize = PasswordUtils.verifyUserPassword(userDto.getPassword(), existUser.getPassword(), salt);
+            log.info("User id: {} authorization : {}", existUser.getId(), authorize);
+            return authorize;
         }
         return false;
     }
@@ -46,8 +52,10 @@ public class UserRegistrationService {
             User user = userDtoToUser(userDto);
             encodePass(user);
             repository.update(user.getEmail(), user.getPassword());
+            log.info("User id: {} recovery success", existUser.getId());
             return true;
         }
+        log.info("User doesn't exist");
         return false;
     }
 

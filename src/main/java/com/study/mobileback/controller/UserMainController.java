@@ -4,14 +4,12 @@ import com.study.mobileback.dto.UserDto;
 import com.study.mobileback.entity.User;
 import com.study.mobileback.service.UserRegistrationService;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Slf4j
 @RestController
 @AllArgsConstructor
 public class UserMainController {
@@ -21,21 +19,18 @@ public class UserMainController {
     @PostMapping(path = "/v1/registration")
     public ResponseEntity<?> registration(@Valid @RequestBody UserDto userDto) {
         boolean registration = userRegistrationService.registration(userDto);
-        log.debug("registration complete : {} ", registration);
         return new ResponseEntity<>(registration, HttpStatus.OK);
     }
 
     @PostMapping(path = "/v1/authorization")
     public ResponseEntity<?> authorization(@RequestBody UserDto userDto) {
         boolean authorizationResult = userRegistrationService.authorization(userDto);
-        log.debug("authorization : {} ", authorizationResult);
         return new ResponseEntity<>(authorizationResult, HttpStatus.OK);
     }
 
     @PostMapping(path = "/v1/recovery")
     public ResponseEntity<?> recoveryPassword(@RequestBody UserDto userDto) {
         boolean recoveryResult = userRegistrationService.recovery(userDto);
-        log.debug("authorization : {} ", recoveryResult);
         return new ResponseEntity<>(recoveryResult, HttpStatus.OK);
     }
 
