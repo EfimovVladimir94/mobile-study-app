@@ -2,7 +2,7 @@ package com.study.mobileback.service;
 
 import com.study.mobileback.dto.AnimalDto;
 import com.study.mobileback.dto.AnimalInfoDto;
-import com.study.mobileback.entity.Animal;
+import com.study.mobileback.model.entity.Animal;
 import com.study.mobileback.repository.AnimalRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

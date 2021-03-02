@@ -1,6 +1,6 @@
 package com.study.mobileback.repository;
 
-import com.study.mobileback.entity.Animal;
+import com.study.mobileback.model.entity.Animal;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

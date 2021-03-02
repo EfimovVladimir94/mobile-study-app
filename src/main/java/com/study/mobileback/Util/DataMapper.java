@@ -3,8 +3,8 @@ package com.study.mobileback.Util;
 import com.study.mobileback.dto.AnimalDto;
 import com.study.mobileback.dto.AnimalInfoDto;
 import com.study.mobileback.dto.UserDto;
-import com.study.mobileback.entity.Animal;
-import com.study.mobileback.entity.User;
+import com.study.mobileback.model.entity.Animal;
+import com.study.mobileback.model.entity.User;
 
 import java.util.List;
 import java.util.stream.Collectors;

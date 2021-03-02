@@ -1,4 +1,4 @@
-package com.study.mobileback.entity;
+package com.study.mobileback.model.entity;
 
 import lombok.*;
 
@@ -19,6 +19,8 @@ public class Animal {
     private String city;
     private Integer age;
     //TODO: добавить изображение
+    //https://stackoverflow.com/questions/54500/storing-images-in-postgresql
+    private byte[] image;
     private String breed;
     private String description;
 

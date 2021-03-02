@@ -1,6 +1,6 @@
 package com.study.mobileback.dto;
 
-import com.study.mobileback.entity.User;
+import com.study.mobileback.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

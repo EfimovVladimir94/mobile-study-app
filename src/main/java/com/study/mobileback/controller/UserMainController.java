@@ -1,7 +1,7 @@
 package com.study.mobileback.controller;
 
 import com.study.mobileback.dto.UserDto;
-import com.study.mobileback.entity.User;
+import com.study.mobileback.model.entity.User;
 import com.study.mobileback.service.UserRegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,14 +18,7 @@ public class UserMainController {
 
     @PostMapping(path = "/v1/registration")
     public ResponseEntity<?> registration(@Valid @RequestBody UserDto userDto) {
-        boolean registration = userRegistrationService.registration(userDto);
-        return new ResponseEntity<>(registration, HttpStatus.OK);
-    }
-
-    @PostMapping(path = "/v1/authorization")
-    public ResponseEntity<?> authorization(@RequestBody UserDto userDto) {
-        boolean authorizationResult = userRegistrationService.authorization(userDto);
-        return new ResponseEntity<>(authorizationResult, HttpStatus.OK);
+        return userRegistrationService.registration(userDto);
     }
 
     @PostMapping(path = "/v1/recovery")

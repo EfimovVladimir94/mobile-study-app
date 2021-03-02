@@ -1,4 +1,4 @@
-package com.study.mobileback.entity;
+package com.study.mobileback.model.entity;
 
 import lombok.*;
 
