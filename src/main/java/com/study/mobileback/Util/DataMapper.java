@@ -2,8 +2,10 @@ package com.study.mobileback.Util;
 
 import com.study.mobileback.dto.AnimalDto;
 import com.study.mobileback.dto.AnimalInfoDto;
+import com.study.mobileback.dto.EventDto;
 import com.study.mobileback.dto.UserDto;
 import com.study.mobileback.model.entity.Animal;
+import com.study.mobileback.model.entity.Event;
 import com.study.mobileback.model.entity.User;
 
 import java.util.List;
@@ -49,6 +51,31 @@ public class DataMapper {
                         .age(x.getAge())
                         .breed(x.getBreed())
                         .description(x.getDescription())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    public static Event eventDtoToEvent(EventDto eventDto) {
+        return Event.builder()
+                .name(eventDto.getName())
+                .eventType(eventDto.getEventType())
+                .description(eventDto.getDescription())
+                .address(eventDto.getAddress())
+                .phone(eventDto.getPhone())
+                .image(eventDto.getImage())
+                .build();
+    }
+
+    public static List<EventDto> listEventToListEventDto(List<Event> events) {
+        return events.stream()
+                .map(x -> EventDto.builder()
+                        .id(x.getId())
+                        .name(x.getName())
+                        .eventType(x.getEventType())
+                        .description(x.getDescription())
+                        .image(x.getImage())
+                        .address(x.getAddress())
+                        .phone(x.getPhone())
                         .build())
                 .collect(Collectors.toList());
     }
