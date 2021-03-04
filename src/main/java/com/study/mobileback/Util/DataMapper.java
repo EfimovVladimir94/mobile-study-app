@@ -1,9 +1,6 @@
 package com.study.mobileback.Util;
 
-import com.study.mobileback.dto.AnimalDto;
-import com.study.mobileback.dto.AnimalInfoDto;
-import com.study.mobileback.dto.EventDto;
-import com.study.mobileback.dto.UserDto;
+import com.study.mobileback.dto.*;
 import com.study.mobileback.model.entity.Animal;
 import com.study.mobileback.model.entity.Event;
 import com.study.mobileback.model.entity.User;
@@ -55,14 +52,14 @@ public class DataMapper {
                 .collect(Collectors.toList());
     }
 
-    public static Event eventDtoToEvent(EventDto eventDto) {
+    public static Event eventDtoToEvent(EventInfoDto eventInfoDto) {
         return Event.builder()
-                .name(eventDto.getName())
-                .eventType(eventDto.getEventType())
-                .description(eventDto.getDescription())
-                .location(eventDto.getLocation())
-                .phone(eventDto.getPhone())
-                .image(eventDto.getImage())
+                .name(eventInfoDto.getName())
+                .eventType(eventInfoDto.getEventType())
+                .description(eventInfoDto.getDescription())
+                .location(eventInfoDto.getLocation())
+                .phone(eventInfoDto.getPhone())
+                .image(eventInfoDto.getImage())
                 .build();
     }
 
@@ -74,9 +71,19 @@ public class DataMapper {
                         .eventType(x.getEventType())
                         .description(x.getDescription())
                         .image(x.getImage())
-                        .location(x.getLocation())
-                        .phone(x.getPhone())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    public static EventInfoDto eventToEventDto(Event event) {
+        return EventInfoDto.builder()
+                .id(event.getId())
+                .name(event.getName())
+                .eventType(event.getEventType())
+                .description(event.getDescription())
+                .image(event.getImage())
+                .location(event.getLocation())
+                .phone(event.getPhone())
+                .build();
     }
 }

@@ -13,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EventDto {
+public class EventInfoDto {
 
     private Long id;
     @NotBlank
@@ -25,4 +25,8 @@ public class EventDto {
     @Length(max = 255, message = "Описание не может превышать более 255 символов")
     private String description;
     private byte[] image;
+    @NotBlank
+    @NotEmpty
+    private String location;
+    private String phone;
 }

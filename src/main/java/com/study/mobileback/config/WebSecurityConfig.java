@@ -53,7 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				"/v1/registration",
 				"/v1/saveEvent",
 				"/v1/event/{id}",
-				"/v1/eventList" ).permitAll().
+				"/v1/eventList",
+				"/v1/event").permitAll().
 				anyRequest().authenticated().and().
 				exceptionHandling().authenticationEntryPoint(jwtAuthorizationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
