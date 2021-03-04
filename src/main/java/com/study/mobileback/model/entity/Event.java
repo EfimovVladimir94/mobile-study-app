@@ -20,7 +20,7 @@ public class Event {
     private String name;
     private String eventType;
     private String description;
-    private String address;
+    private String location;
     private String phone;
     private byte[] image;
 }

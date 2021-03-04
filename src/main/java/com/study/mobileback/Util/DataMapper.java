@@ -60,7 +60,7 @@ public class DataMapper {
                 .name(eventDto.getName())
                 .eventType(eventDto.getEventType())
                 .description(eventDto.getDescription())
-                .address(eventDto.getAddress())
+                .location(eventDto.getLocation())
                 .phone(eventDto.getPhone())
                 .image(eventDto.getImage())
                 .build();
@@ -74,7 +74,7 @@ public class DataMapper {
                         .eventType(x.getEventType())
                         .description(x.getDescription())
                         .image(x.getImage())
-                        .address(x.getAddress())
+                        .location(x.getLocation())
                         .phone(x.getPhone())
                         .build())
                 .collect(Collectors.toList());

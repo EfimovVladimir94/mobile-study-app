@@ -27,6 +27,6 @@ public class EventDto {
     private byte[] image;
     @NotBlank
     @NotEmpty
-    private String address;
+    private String location;
     private String phone;
 }
