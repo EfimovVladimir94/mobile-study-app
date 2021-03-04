@@ -21,8 +21,7 @@ public class AnimalController {
 
     @PostMapping(path = "/v1/saveAnimal")
     public ResponseEntity<?> saveAnimal(@Valid @RequestBody AnimalDto animalDto) {
-        animalService.saveAnimal(animalDto);
-        return new ResponseEntity<>("Success", HttpStatus.OK);
+        return animalService.saveAnimal(animalDto);
     }
 
     @PostMapping(path = "/v1/editAnimal")

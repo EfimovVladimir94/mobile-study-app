@@ -10,22 +10,23 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "animal")
 public class Animal {
 
     @Id
-    @GeneratedValue
+    @Column(name = "user_id")
     private Long id;
     private String name;
     private String city;
     private Integer age;
-    //TODO: добавить изображение
     //https://stackoverflow.com/questions/54500/storing-images-in-postgresql
     private byte[] image;
     private String breed;
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "user_id")
     private User user;
 
 }

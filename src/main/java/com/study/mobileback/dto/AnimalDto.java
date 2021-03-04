@@ -30,5 +30,4 @@ public class AnimalDto {
     @NotBlank
     @NotEmpty
     private String description;
-    private User user;
 }

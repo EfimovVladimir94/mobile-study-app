@@ -17,14 +17,14 @@ public class DataMapper {
                 .build();
     }
 
-    public static Animal animalDtoToAnimal(AnimalDto animalDto) {
+    public static Animal animalDtoToAnimal(AnimalDto animalDto, User user) {
         return Animal.builder()
                 .name(animalDto.getName())
                 .city(animalDto.getCity())
                 .age(animalDto.getAge())
                 .breed(animalDto.getBreed())
                 .description(animalDto.getDescription())
-                .user(animalDto.getUser())
+                .user(user)
                 .build();
     }
 
