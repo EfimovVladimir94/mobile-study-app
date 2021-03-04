@@ -42,7 +42,7 @@ public class AnimalService {
         return new ResponseEntity<>("Failure", HttpStatus.BAD_REQUEST);
     }
 
-    public boolean editAnimal(AnimalDto animalDto) {
+    public ResponseEntity<?> editAnimal(AnimalDto animalDto) {
         User user = getAuthorizationUser();
         List<Animal> listAnimal = animalRepository.findByUserId(user.getId());
         Optional<Animal> first = listAnimal.stream()
@@ -51,29 +51,23 @@ public class AnimalService {
         if (first.isPresent()) {
             Animal animal = animalDtoToAnimal(animalDto, user);
             animalRepository.update(animal.getName(), animal.getCity(), animal.getAge(), animal.getBreed(),
-                    animal.getDescription(), animalDto.getId());
-            log.info(" animal for id: {} update success", animalDto.getId());
-            return true;
+                    animal.getDescription(), user.getId());
+            log.info(" animal for id: {} update success", user.getId());
+            return new ResponseEntity<>("Success", HttpStatus.OK);
         }
-        log.info("animal for id: {} update failure", animalDto.getId());
-        return false;
+        log.info("animal for id: {} update failure", animalDto.getName());
+        return new ResponseEntity<>("Failure", HttpStatus.BAD_REQUEST);
     }
 
-    public boolean deleteAnimal(Long id, Long userId) {
+    public ResponseEntity<?> deleteAnimal(Long id) {
         Animal existAnimal = getExistAnimal(id);
-
         if (existAnimal != null) {
-            boolean isOwnerUser = existAnimal.getUser().getId().longValue() == userId.longValue();
-            if (isOwnerUser) {
                 animalRepository.deleteById(id);
                 log.info("delete animal for id: {} success", id);
-                return true;
-            }
-            log.info("an attempt to delete a wrong object");
-            return false;
+                return new ResponseEntity<>("Success", HttpStatus.OK);
         }
         log.info("delete animal for id: {} failed, existAnimal = null", id);
-        return false;
+        return new ResponseEntity<>("Failure", HttpStatus.BAD_REQUEST);
     }
 
     private User getAuthorizationUser() {

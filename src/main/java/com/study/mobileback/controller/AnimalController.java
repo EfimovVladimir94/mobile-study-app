@@ -26,14 +26,12 @@ public class AnimalController {
 
     @PostMapping(path = "/v1/editAnimal")
     public ResponseEntity<?> editAnimal(@Valid @RequestBody AnimalDto animalDto) {
-        boolean updated = animalService.editAnimal(animalDto);
-        return new ResponseEntity<>(updated, HttpStatus.OK);
+        return animalService.editAnimal(animalDto);
     }
 
     @DeleteMapping(value = "/v1/animal/{id}")
-    public ResponseEntity<?> deleteAnimal(@PathVariable Long id, @RequestParam Long userId) {
-        boolean deleted = animalService.deleteAnimal(id, userId);
-        return new ResponseEntity<>(deleted, HttpStatus.OK);
+    public ResponseEntity<?> deleteAnimal(@PathVariable Long id) {
+        return animalService.deleteAnimal(id);
     }
 
     @GetMapping(path = "/v1/animal")

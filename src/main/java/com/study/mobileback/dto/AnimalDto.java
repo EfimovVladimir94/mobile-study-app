@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class AnimalDto {
 
-    private Long id;
     @NotBlank
     @NotEmpty
     private String name;
