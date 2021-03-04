@@ -71,6 +71,7 @@ public class DataMapper {
                         .eventType(x.getEventType())
                         .description(x.getDescription())
                         .image(x.getImage())
+                        .location(x.getLocation())
                         .build())
                 .collect(Collectors.toList());
     }
