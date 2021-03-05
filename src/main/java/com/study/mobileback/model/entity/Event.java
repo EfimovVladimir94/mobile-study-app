@@ -2,9 +2,7 @@ package com.study.mobileback.model.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -12,15 +10,19 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "event")
 public class Event {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
     private String name;
     private String eventType;
     private String description;
-    private String location;
     private String phone;
     private byte[] image;
+    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Location location;
 }

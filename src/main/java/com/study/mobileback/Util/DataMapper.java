@@ -3,6 +3,7 @@ package com.study.mobileback.Util;
 import com.study.mobileback.dto.*;
 import com.study.mobileback.model.entity.Animal;
 import com.study.mobileback.model.entity.Event;
+import com.study.mobileback.model.entity.Location;
 import com.study.mobileback.model.entity.User;
 
 import java.util.List;
@@ -53,14 +54,19 @@ public class DataMapper {
     }
 
     public static Event eventDtoToEvent(EventInfoDto eventInfoDto) {
-        return Event.builder()
+        Event newEvent = Event.builder()
                 .name(eventInfoDto.getName())
                 .eventType(eventInfoDto.getEventType())
                 .description(eventInfoDto.getDescription())
-                .location(eventInfoDto.getLocation())
                 .phone(eventInfoDto.getPhone())
                 .image(eventInfoDto.getImage())
                 .build();
+        newEvent.setLocation(Location.builder()
+                .lat(eventInfoDto.getLocation().getLat())
+                .lng(eventInfoDto.getLocation().getLng())
+                .event(newEvent)
+                .build());
+        return newEvent;
     }
 
     public static List<EventDto> listEventToListEventDto(List<Event> events) {
@@ -71,7 +77,10 @@ public class DataMapper {
                         .eventType(x.getEventType())
                         .description(x.getDescription())
                         .image(x.getImage())
-                        .location(x.getLocation())
+                        .location(LocationDto.builder()
+                                .lat(x.getLocation().getLat())
+                                .lng(x.getLocation().getLat())
+                                .build())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -83,7 +92,10 @@ public class DataMapper {
                 .eventType(event.getEventType())
                 .description(event.getDescription())
                 .image(event.getImage())
-                .location(event.getLocation())
+                .location(LocationDto.builder()
+                        .lat(event.getLocation().getLat())
+                        .lng(event.getLocation().getLat())
+                        .build())
                 .phone(event.getPhone())
                 .build();
     }
