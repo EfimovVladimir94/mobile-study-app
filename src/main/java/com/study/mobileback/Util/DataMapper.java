@@ -79,7 +79,7 @@ public class DataMapper {
                         .image(x.getImage())
                         .location(LocationDto.builder()
                                 .lat(x.getLocation().getLat())
-                                .lng(x.getLocation().getLat())
+                                .lng(x.getLocation().getLng())
                                 .build())
                         .build())
                 .collect(Collectors.toList());
@@ -94,7 +94,7 @@ public class DataMapper {
                 .image(event.getImage())
                 .location(LocationDto.builder()
                         .lat(event.getLocation().getLat())
-                        .lng(event.getLocation().getLat())
+                        .lng(event.getLocation().getLng())
                         .build())
                 .phone(event.getPhone())
                 .build();
