@@ -21,7 +21,7 @@ public class Event {
     private String eventType;
     private String description;
     private String phone;
-    private byte[] image;
+    private String image;
     @OneToOne(mappedBy = "event", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Location location;
