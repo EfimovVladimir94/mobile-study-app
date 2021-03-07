@@ -35,7 +35,7 @@ public class JwtAuthorizationController {
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(userDto.getEmail());
         JwtResponse authorizationUser = jwtTokenUtil.createAuthorizationUser(userDetails);
-        return ResponseEntity.ok(new JwtResponse(authorizationUser.getJwttoken(), authorizationUser.getUserId()));
+        return ResponseEntity.ok(new JwtResponse(authorizationUser.getAuthToken(), authorizationUser.getUserID()));
     }
 
     private void authenticate(String username, String password) throws Exception {
