@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -25,5 +26,5 @@ public class EventDto {
     @Length(max = 255, message = "Описание не может превышать более 255 символов")
     private String description;
     private LocationDto location;
-    private String image;
+    private byte[] image;
 }

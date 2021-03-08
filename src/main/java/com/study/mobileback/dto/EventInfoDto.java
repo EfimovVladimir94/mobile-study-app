@@ -24,7 +24,7 @@ public class EventInfoDto {
     private String eventType;
     @Length(max = 255, message = "Описание не может превышать более 255 символов")
     private String description;
-    private String image;
+    private byte[] image;
     private String phone;
     private LocationDto location;
 }

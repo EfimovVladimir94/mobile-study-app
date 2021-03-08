@@ -8,7 +8,9 @@ import com.study.mobileback.repository.EventRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +23,16 @@ public class EventService {
     @Autowired
     private EventRepository repository;
 
-    public void saveEvent(EventInfoDto dto) {
-        Event event = eventDtoToEvent(dto);
-        repository.save(event);
+    public void saveEvent(String dto, MultipartFile file) {
+        byte[] bytes = new byte[0];
+        try {
+            bytes = file.getBytes();
+            Event event = eventDtoToEvent(dto, bytes);
+            repository.save(event);
+        } catch (IOException e) {
+            log.error("save event failure ");
+            e.printStackTrace();
+        }
     }
 
     public void deleteEvent(Long id) {

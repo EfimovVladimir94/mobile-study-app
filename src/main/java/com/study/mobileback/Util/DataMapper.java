@@ -5,7 +5,11 @@ import com.study.mobileback.model.entity.Animal;
 import com.study.mobileback.model.entity.Event;
 import com.study.mobileback.model.entity.Location;
 import com.study.mobileback.model.entity.User;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,13 +57,14 @@ public class DataMapper {
                 .collect(Collectors.toList());
     }
 
-    public static Event eventDtoToEvent(EventInfoDto eventInfoDto) {
+    public static Event eventDtoToEvent(String payload, byte[] file) {
+       EventInfoDto eventInfoDto =  parseEventSaveRequest(payload);
         Event newEvent = Event.builder()
                 .name(eventInfoDto.getName())
                 .eventType(eventInfoDto.getEventType())
                 .description(eventInfoDto.getDescription())
                 .phone(eventInfoDto.getPhone())
-                .image(eventInfoDto.getImage())
+                .image(file)
                 .build();
         newEvent.setLocation(Location.builder()
                 .lat(eventInfoDto.getLocation().getLat())
@@ -97,6 +102,21 @@ public class DataMapper {
                         .lng(event.getLocation().getLng())
                         .build())
                 .phone(event.getPhone())
+                .build();
+    }
+
+    private static EventInfoDto parseEventSaveRequest(String jsonString) {
+        JSONObject jsonObject = new JSONObject(jsonString);
+        JSONObject location = jsonObject.getJSONObject("location");
+        return EventInfoDto.builder()
+                .name(jsonObject.getString("name"))
+                .eventType(jsonObject.getString("eventType"))
+                .description(jsonObject.getString("description"))
+                .phone(jsonObject.getString("phone"))
+                .location(LocationDto.builder()
+                        .lat(location.getDouble("lat"))
+                        .lng(location.getDouble("lng"))
+                        .build())
                 .build();
     }
 }

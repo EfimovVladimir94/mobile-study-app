@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,8 +19,9 @@ public class EventController {
     private final EventService eventService;
 
     @PostMapping(path = "/v1/saveEvent")
-    public ResponseEntity<?> saveEvent(@Valid @RequestBody EventInfoDto eventInfoDto) {
-        eventService.saveEvent(eventInfoDto);
+    public ResponseEntity<?> saveEvent(@RequestParam("event") String eventInfoDto,
+                                       @RequestParam("file") MultipartFile file) {
+        eventService.saveEvent(eventInfoDto, file);
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
