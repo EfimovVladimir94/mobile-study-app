@@ -2,6 +2,7 @@ package com.study.mobileback.controller;
 
 import com.study.mobileback.dto.EventDto;
 import com.study.mobileback.dto.EventInfoDto;
+import com.study.mobileback.dto.EventMapMarkDto;
 import com.study.mobileback.service.EventService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,7 @@ public class EventController {
 
     @GetMapping(path = "/v1/eventList")
     public ResponseEntity<?> getEventList() {
-        List<EventDto> eventDtos = eventService.listEvents();
+        List<EventMapMarkDto> eventDtos = eventService.listEvents();
         return new ResponseEntity<>(eventDtos, HttpStatus.OK);
     }
 

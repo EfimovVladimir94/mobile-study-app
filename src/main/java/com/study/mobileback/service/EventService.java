@@ -3,6 +3,7 @@ package com.study.mobileback.service;
 import com.study.mobileback.Util.DataMapper;
 import com.study.mobileback.dto.EventDto;
 import com.study.mobileback.dto.EventInfoDto;
+import com.study.mobileback.dto.EventMapMarkDto;
 import com.study.mobileback.model.entity.Event;
 import com.study.mobileback.repository.EventRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,7 @@ public class EventService {
         repository.deleteById(id);
     }
 
-    public List<EventDto> listEvents() {
+    public List<EventMapMarkDto> listEvents() {
         List<Event> events = repository.findAll();
         return listEventToListEventDto(events);
     }

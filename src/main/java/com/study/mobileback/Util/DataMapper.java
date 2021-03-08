@@ -74,14 +74,12 @@ public class DataMapper {
         return newEvent;
     }
 
-    public static List<EventDto> listEventToListEventDto(List<Event> events) {
+    public static List<EventMapMarkDto> listEventToListEventDto(List<Event> events) {
         return events.stream()
-                .map(x -> EventDto.builder()
-                        .id(x.getId())
+                .map(x -> EventMapMarkDto.builder()
                         .name(x.getName())
                         .eventType(x.getEventType())
                         .description(x.getDescription())
-                        .image(x.getImage())
                         .location(LocationDto.builder()
                                 .lat(x.getLocation().getLat())
                                 .lng(x.getLocation().getLng())
