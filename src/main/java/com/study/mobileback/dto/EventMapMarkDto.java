@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class EventMapMarkDto {
 
+    private Long id;
     private String name;
     private String description;
     private LocationDto location;

@@ -5,11 +5,8 @@ import com.study.mobileback.model.entity.Animal;
 import com.study.mobileback.model.entity.Event;
 import com.study.mobileback.model.entity.Location;
 import com.study.mobileback.model.entity.User;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,6 +74,7 @@ public class DataMapper {
     public static List<EventMapMarkDto> listEventToListEventDto(List<Event> events) {
         return events.stream()
                 .map(x -> EventMapMarkDto.builder()
+                        .id(x.getId())
                         .name(x.getName())
                         .eventType(x.getEventType())
                         .description(x.getDescription())
