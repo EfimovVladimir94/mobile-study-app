@@ -6,6 +6,8 @@ import com.study.mobileback.model.entity.Event;
 import com.study.mobileback.model.entity.Location;
 import com.study.mobileback.model.entity.User;
 import org.json.JSONObject;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,15 +21,19 @@ public class DataMapper {
                 .build();
     }
 
-    public static Animal animalDtoToAnimal(AnimalDto animalDto, User user) {
-        return Animal.builder()
+    public static Animal animalDtoToAnimal(String payload, byte[] file, User user) {
+        AnimalDto animalDto = parseAnimalSaveRequest(payload);
+        Animal animal = Animal.builder()
                 .name(animalDto.getName())
                 .city(animalDto.getCity())
                 .age(animalDto.getAge())
+                .image(file)
                 .breed(animalDto.getBreed())
                 .description(animalDto.getDescription())
-                .user(user)
+                .gender(animalDto.getGender())
                 .build();
+        animal.setUser(user);
+        return animal;
     }
 
     public static AnimalInfoDto animalToAnimalDto(Animal animal) {
@@ -113,6 +119,18 @@ public class DataMapper {
                         .lat(location.getDouble("lat"))
                         .lng(location.getDouble("lng"))
                         .build())
+                .build();
+    }
+
+    private static AnimalDto parseAnimalSaveRequest(String jsonString) {
+        JSONObject jsonObject = new JSONObject(jsonString);
+        return AnimalDto.builder()
+                .name(jsonObject.getString("name"))
+                .city(jsonObject.getString("city"))
+                .age(jsonObject.getInt("age"))
+                .breed(jsonObject.getString("breed"))
+                .description(jsonObject.getString("description"))
+                .gender(jsonObject.getString("gender"))
                 .build();
     }
 }

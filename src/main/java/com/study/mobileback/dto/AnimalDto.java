@@ -1,7 +1,7 @@
 package com.study.mobileback.dto;
 
-import com.study.mobileback.model.entity.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class AnimalDto {
 
     @NotBlank
@@ -22,11 +23,12 @@ public class AnimalDto {
     private String city;
     @NotNull
     private Integer age;
-    //TODO: добавить изображение
     @NotBlank
     @NotEmpty
     private String breed;
+    private String gender;
     @NotBlank
     @NotEmpty
     private String description;
+    private byte[] image;
 }

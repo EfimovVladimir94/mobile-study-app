@@ -1,6 +1,5 @@
 package com.study.mobileback.controller;
 
-import com.study.mobileback.dto.EventDto;
 import com.study.mobileback.dto.EventInfoDto;
 import com.study.mobileback.dto.EventMapMarkDto;
 import com.study.mobileback.service.EventService;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController

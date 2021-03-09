@@ -23,7 +23,7 @@ public class Animal {
     private byte[] image;
     private String breed;
     private String description;
-
+    private String gender;
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")

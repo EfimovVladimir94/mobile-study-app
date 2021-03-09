@@ -25,11 +25,11 @@ public class AnimalInfoDto {
     private String city;
     @NotNull
     private Integer age;
-    //TODO: добавить изображение
     @NotBlank
     @NotEmpty
     private String breed;
     @NotBlank
     @NotEmpty
     private String description;
+    private byte[] image;
 }
