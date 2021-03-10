@@ -132,7 +132,7 @@ public class DataMapper {
                 .breed(jsonObject.getString("breed"))
                 .description(jsonObject.getString("description"))
                 .gender(jsonObject.getString("gender"))
-                .ownerName("ownerName")
+                .ownerName(jsonObject.getString("ownerName"))
                 .build();
     }
 }
