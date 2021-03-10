@@ -6,8 +6,6 @@ import com.study.mobileback.model.entity.Event;
 import com.study.mobileback.model.entity.Location;
 import com.study.mobileback.model.entity.User;
 import org.json.JSONObject;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +22,7 @@ public class DataMapper {
     public static Animal animalDtoToAnimal(String payload, byte[] file, User user) {
         AnimalDto animalDto = parseAnimalSaveRequest(payload);
         Animal animal = Animal.builder()
+                .id(user.getId())
                 .name(animalDto.getName())
                 .city(animalDto.getCity())
                 .age(animalDto.getAge())

@@ -41,22 +41,6 @@ public class AnimalService {
             e.printStackTrace();
             return new ResponseEntity<>("Failure", HttpStatus.BAD_REQUEST);
         }
-
-
-//        User user = getAuthorizationUser();
-//        List<Animal> listAnimal = animalRepository.findByUserId(user.getId());
-//        Optional<Animal> first = listAnimal.stream()
-//                .filter(x -> x.getName().equals(animalDto.getName())).findFirst();
-//
-//        if (first.isPresent()) {
-//            Animal animal = animalDtoToAnimal(animalDto, user);
-//            animalRepository.update(animal.getName(), animal.getCity(), animal.getAge(), animal.getBreed(),
-//                    animal.getDescription(), user.getId());
-//            log.info(" animal for id: {} update success", user.getId());
-//            return new ResponseEntity<>("Success", HttpStatus.OK);
-//        }
-//        log.info("animal for id: {} update failure", animalDto.getName());
-//        return new ResponseEntity<>("Failure", HttpStatus.BAD_REQUEST);
     }
 
     public ResponseEntity<?> deleteAnimal() {
