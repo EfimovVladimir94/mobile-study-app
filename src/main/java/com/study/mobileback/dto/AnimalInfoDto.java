@@ -28,6 +28,7 @@ public class AnimalInfoDto {
     @NotBlank
     @NotEmpty
     private String breed;
+    private String gender;
     private String ownerName;
     @NotBlank
     @NotEmpty

@@ -44,7 +44,9 @@ public class DataMapper {
                 .age(animal.getAge())
                 .breed(animal.getBreed())
                 .description(animal.getDescription())
+                .gender(animal.getGender())
                 .ownerName(animal.getOwnerName())
+                .image(animal.getImage())
                 .build();
     }
 
