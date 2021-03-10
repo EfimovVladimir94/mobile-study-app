@@ -18,7 +18,7 @@ public class AnimalController {
 
     private final AnimalService animalService;
 
-    @PostMapping(path = "/v1/animal")
+    @PostMapping(path = "/v1/")
     public ResponseEntity<?> saveOrUpdate(@RequestParam("animal") String animalDto,
                                           @RequestParam("file") MultipartFile file) {
         return animalService.saveOrUpdate(animalDto, file);

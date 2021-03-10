@@ -30,6 +30,7 @@ public class DataMapper {
                 .breed(animalDto.getBreed())
                 .description(animalDto.getDescription())
                 .gender(animalDto.getGender())
+                .ownerName(animalDto.getOwnerName())
                 .build();
         animal.setUser(user);
         return animal;
@@ -43,6 +44,7 @@ public class DataMapper {
                 .age(animal.getAge())
                 .breed(animal.getBreed())
                 .description(animal.getDescription())
+                .ownerName(animal.getOwnerName())
                 .build();
     }
 
@@ -130,6 +132,7 @@ public class DataMapper {
                 .breed(jsonObject.getString("breed"))
                 .description(jsonObject.getString("description"))
                 .gender(jsonObject.getString("gender"))
+                .ownerName("ownerName")
                 .build();
     }
 }

@@ -24,6 +24,7 @@ public class Animal {
     private String breed;
     private String description;
     private String gender;
+    private String ownerName;
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
