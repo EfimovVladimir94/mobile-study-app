@@ -22,8 +22,6 @@ public class MobileBackEndApplication {
 	@Bean
 	MultipartConfigElement multipartConfigElement() {
 		MultipartConfigFactory factory = new MultipartConfigFactory();
-		factory.setMaxFileSize(DataSize.ofBytes(1048576L));
-		factory.setMaxRequestSize(DataSize.ofBytes(1048576L));
 		return factory.createMultipartConfig();
 	}
 
