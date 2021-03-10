@@ -17,13 +17,12 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "user_id")
     private Long id;
     private String email;
     private String password;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "user")
     private Animal animal;
 
 }

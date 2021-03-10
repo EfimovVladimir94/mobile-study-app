@@ -15,14 +15,14 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "event_id")
     private Long id;
     private String name;
     private String eventType;
     private String description;
     private String phone;
     private byte[] image;
-    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id")
     private Location location;
 }

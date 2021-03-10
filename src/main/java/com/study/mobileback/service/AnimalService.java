@@ -34,7 +34,12 @@ public class AnimalService {
         try {
             bytes = file.getBytes();
             Animal event = animalDtoToAnimal(animalDto, bytes, getAuthorizationUser());
-            animalRepository.save(event);
+            try {
+                animalRepository.save(event);
+            } catch (Exception e) {
+                log.error(e.getLocalizedMessage());
+            }
+
             return new ResponseEntity<>("Success", HttpStatus.OK);
         } catch (IOException e) {
             log.error("save event failure ");

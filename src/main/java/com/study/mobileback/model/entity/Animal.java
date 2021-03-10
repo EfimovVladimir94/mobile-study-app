@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Animal {
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "animal_id")
     private Long id;
     private String name;
     private String city;
@@ -25,8 +25,7 @@ public class Animal {
     private String description;
     private String gender;
     private String ownerName;
-    @OneToOne
-    @MapsId
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 

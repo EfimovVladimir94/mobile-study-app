@@ -14,12 +14,12 @@ import javax.persistence.*;
 public class Location {
     @Id
     @GeneratedValue
+    @Column(name = "location_id")
     private Long id;
     private Double lat;
     private Double lng;
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "event_id")
+
+    @OneToOne(mappedBy = "location")
     private Event event;
 
 }
