@@ -3,9 +3,9 @@ package com.study.mobileback.controller;
 
 import com.study.mobileback.config.JwtTokenUtil;
 import com.study.mobileback.dto.UserDto;
-import com.study.mobileback.model.JwtResponse;
 import com.study.mobileback.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -34,8 +34,8 @@ public class JwtAuthorizationController {
 
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(userDto.getEmail());
-        JwtResponse authorizationUser = jwtTokenUtil.createAuthorizationUser(userDetails);
-        return ResponseEntity.ok(new JwtResponse(authorizationUser.getAuthToken(), authorizationUser.getUserID()));
+        String authorizationToken = jwtTokenUtil.createAuthorizationUser(userDetails);
+        return new ResponseEntity<>(authorizationToken, HttpStatus.OK);
     }
 
     private void authenticate(String username, String password) throws Exception {

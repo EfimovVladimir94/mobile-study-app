@@ -1,6 +1,5 @@
 package com.study.mobileback.config;
 
-import com.study.mobileback.model.JwtResponse;
 import com.study.mobileback.model.entity.User;
 import com.study.mobileback.repository.UserRepository;
 import io.jsonwebtoken.Claims;
@@ -53,14 +52,13 @@ public class JwtTokenUtil implements Serializable {
         return expiration.before(new Date());
     }
 
-    public JwtResponse createAuthorizationUser(UserDetails userDetails) {
+    public String createAuthorizationUser(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         Optional<User> userInfo = repository.findByEmail(userDetails.getUsername());
         if (userInfo.isEmpty()) {
-            return new JwtResponse(null, null);
+            return "";
         }
-        String token = doGenerateToken(claims, userDetails.getUsername());
-        return new JwtResponse(token, userInfo.get().getId());
+        return doGenerateToken(claims, userDetails.getUsername());
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
