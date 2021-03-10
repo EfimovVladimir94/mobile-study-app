@@ -14,6 +14,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @CrossOrigin
 public class JwtAuthorizationController {
@@ -28,14 +31,16 @@ public class JwtAuthorizationController {
     private JwtUserDetailsService userDetailsService;
 
     @RequestMapping(value = "/v1/authorization", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthorizationToken(@RequestBody UserDto userDto) throws Exception {
+    public Map<String, String> createAuthorizationToken(@RequestBody UserDto userDto) throws Exception {
 
         authenticate(userDto.getEmail(), userDto.getPassword());
 
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(userDto.getEmail());
         String authorizationToken = jwtTokenUtil.createAuthorizationUser(userDetails);
-        return new ResponseEntity<>(authorizationToken, HttpStatus.OK);
+        Map<String, String> auth = new HashMap<>();
+        auth.put("authToken", authorizationToken);
+        return auth;
     }
 
     private void authenticate(String username, String password) throws Exception {
