@@ -105,7 +105,7 @@ public class AnimalService {
     public AnimalInfoDto getAnimal() {
         User authorizationUser = getAuthorizationUser();
         Animal existAnimal = getExistAnimal(authorizationUser.getId());
-        return animalToAnimalDto(existAnimal);
+        return animalToAnimalDto(existAnimal, authorizationUser.getId());
     }
 
     public Animal getExistAnimal(Long id) {

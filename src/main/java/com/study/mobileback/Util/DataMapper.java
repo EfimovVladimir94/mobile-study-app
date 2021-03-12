@@ -4,6 +4,8 @@ import com.study.mobileback.dto.*;
 import com.study.mobileback.model.entity.*;
 import org.json.JSONObject;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +19,8 @@ public class DataMapper {
     }
 
     public static Animal animalDtoToAnimal(AnimalDto animalDto, Image image, User user) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        LocalDate date = LocalDate.parse(animalDto.getRegistrationDate(),formatter);
         Animal animal = Animal.builder()
                 .id(user.getId())
                 .name(animalDto.getName())
@@ -27,14 +31,21 @@ public class DataMapper {
                 .description(animalDto.getDescription())
                 .gender(animalDto.getGender())
                 .ownerName(animalDto.getOwnerName())
+                .registrationDate(date)
                 .build();
         animal.setUser(user);
         return animal;
     }
 
-    public static AnimalInfoDto animalToAnimalDto(Animal animal) {
+    public static AnimalInfoDto animalToAnimalDto(Animal animal, Long id) {
+        Image image = animal.getImage();
+        if (image == null) {
+            animal.setImage(null);
+        } else {
+            animal.setImage(animal.getImage());
+        }
         return AnimalInfoDto.builder()
-                .id(animal.getId())
+                .id(id)
                 .name(animal.getName())
                 .city(animal.getCity())
                 .age(animal.getAge())
@@ -42,7 +53,7 @@ public class DataMapper {
                 .description(animal.getDescription())
                 .gender(animal.getGender())
                 .ownerName(animal.getOwnerName())
-                .image(animal.getImage().getBytes())
+                .registrationDate(animal.getRegistrationDate())
                 .build();
     }
 
