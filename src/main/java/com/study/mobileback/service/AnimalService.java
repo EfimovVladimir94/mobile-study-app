@@ -1,9 +1,12 @@
 package com.study.mobileback.service;
 
+import com.study.mobileback.dto.AnimalDto;
 import com.study.mobileback.dto.AnimalInfoDto;
 import com.study.mobileback.model.entity.Animal;
+import com.study.mobileback.model.entity.Image;
 import com.study.mobileback.model.entity.User;
 import com.study.mobileback.repository.AnimalRepository;
+import com.study.mobileback.repository.ImageRepository;
 import com.study.mobileback.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,23 +30,19 @@ public class AnimalService {
     private AnimalRepository animalRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ImageRepository imageRepository;
 
-    public ResponseEntity<?> saveOrUpdate(String animalDto, MultipartFile file) {
+    public ResponseEntity<?> saveOrUpdateInfo(AnimalDto animalDto) {
 
-        byte[] bytes = new byte[0];
+        Optional<Image> image = imageRepository.findById(getAuthorizationUser().getId());
+        Image temp = image.orElse(null);
+        Animal animal = animalDtoToAnimal(animalDto, temp, getAuthorizationUser());
         try {
-            bytes = file.getBytes();
-            Animal event = animalDtoToAnimal(animalDto, bytes, getAuthorizationUser());
-            try {
-                animalRepository.save(event);
-            } catch (Exception e) {
-                log.error(e.getLocalizedMessage());
-            }
-
+            animalRepository.save(animal);
             return new ResponseEntity<>("Success", HttpStatus.OK);
-        } catch (IOException e) {
-            log.error("save event failure ");
-            e.printStackTrace();
+        } catch (Exception e) {
+            log.error(e.getLocalizedMessage());
             return new ResponseEntity<>("Failure", HttpStatus.BAD_REQUEST);
         }
     }
@@ -57,6 +56,41 @@ public class AnimalService {
             return new ResponseEntity<>("Success", HttpStatus.OK);
         }
         log.info("delete animal for id: {} failed, existAnimal = null", id);
+        return new ResponseEntity<>("Failure", HttpStatus.BAD_REQUEST);
+    }
+
+    public ResponseEntity<?> saveOrUpdateImage(MultipartFile file) {
+
+        byte[] bytes = new byte[0];
+        try {
+            bytes = file.getBytes();
+            Image image = Image.builder()
+                    .id(getAuthorizationUser().getId())
+                    .bytes(bytes)
+                    .animal(getExistAnimal(getAuthorizationUser().getId()))
+                    .build();
+            try {
+                imageRepository.save(image);
+            } catch (Exception e) {
+                log.error(e.getLocalizedMessage());
+            }
+
+            return new ResponseEntity<>("Success", HttpStatus.OK);
+        } catch (IOException e) {
+            log.error("save event failure ");
+            e.printStackTrace();
+            return new ResponseEntity<>("Failure", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public ResponseEntity<?> deleteImage() {
+        Optional<Image> existImage = imageRepository.findById(getAuthorizationUser().getId());
+        if (existImage.isPresent()) {
+            imageRepository.deleteById(getAuthorizationUser().getId());
+            log.info("delete animal for id: {} success", existImage.get().getId());
+            return new ResponseEntity<>("Success", HttpStatus.OK);
+        }
+        log.info("delete image failed, existImage = null");
         return new ResponseEntity<>("Failure", HttpStatus.BAD_REQUEST);
     }
 

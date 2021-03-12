@@ -1,10 +1,7 @@
 package com.study.mobileback.Util;
 
 import com.study.mobileback.dto.*;
-import com.study.mobileback.model.entity.Animal;
-import com.study.mobileback.model.entity.Event;
-import com.study.mobileback.model.entity.Location;
-import com.study.mobileback.model.entity.User;
+import com.study.mobileback.model.entity.*;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -19,14 +16,13 @@ public class DataMapper {
                 .build();
     }
 
-    public static Animal animalDtoToAnimal(String payload, byte[] file, User user) {
-        AnimalDto animalDto = parseAnimalSaveRequest(payload);
+    public static Animal animalDtoToAnimal(AnimalDto animalDto, Image image, User user) {
         Animal animal = Animal.builder()
                 .id(user.getId())
                 .name(animalDto.getName())
                 .city(animalDto.getCity())
                 .age(animalDto.getAge())
-                .image(file)
+                .image(image)
                 .breed(animalDto.getBreed())
                 .description(animalDto.getDescription())
                 .gender(animalDto.getGender())
@@ -46,7 +42,7 @@ public class DataMapper {
                 .description(animal.getDescription())
                 .gender(animal.getGender())
                 .ownerName(animal.getOwnerName())
-                .image(animal.getImage())
+                .image(animal.getImage().getBytes())
                 .build();
     }
 
@@ -125,16 +121,4 @@ public class DataMapper {
                 .build();
     }
 
-    private static AnimalDto parseAnimalSaveRequest(String jsonString) {
-        JSONObject jsonObject = new JSONObject(jsonString);
-        return AnimalDto.builder()
-                .name(jsonObject.getString("name"))
-                .city(jsonObject.getString("city"))
-                .age(jsonObject.getInt("age"))
-                .breed(jsonObject.getString("breed"))
-                .description(jsonObject.getString("description"))
-                .gender(jsonObject.getString("gender"))
-                .ownerName(jsonObject.getString("ownerName"))
-                .build();
-    }
 }

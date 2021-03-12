@@ -31,5 +31,4 @@ public class AnimalDto {
     @NotBlank
     @NotEmpty
     private String description;
-    private byte[] image;
 }

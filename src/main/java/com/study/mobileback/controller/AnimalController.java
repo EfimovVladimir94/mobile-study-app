@@ -1,5 +1,6 @@
 package com.study.mobileback.controller;
 
+import com.study.mobileback.dto.AnimalDto;
 import com.study.mobileback.dto.AnimalInfoDto;
 import com.study.mobileback.service.AnimalService;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,9 +21,8 @@ public class AnimalController {
     private final AnimalService animalService;
 
     @PostMapping(path = "/v1/animal")
-    public ResponseEntity<?> saveOrUpdate(@RequestParam("animal") String animalDto,
-                                          @RequestParam("file") MultipartFile file) {
-        return animalService.saveOrUpdate(animalDto, file);
+    public ResponseEntity<?> saveOrUpdate(@Valid @RequestBody AnimalDto animalDto) {
+        return animalService.saveOrUpdateInfo(animalDto);
     }
 
     @DeleteMapping(value = "/v1/animal")

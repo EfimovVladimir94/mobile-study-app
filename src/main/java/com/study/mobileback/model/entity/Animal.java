@@ -19,8 +19,6 @@ public class Animal {
     private String name;
     private String city;
     private Integer age;
-    //https://stackoverflow.com/questions/54500/storing-images-in-postgresql
-    private byte[] image;
     private String breed;
     private String description;
     private String gender;
@@ -28,5 +26,6 @@ public class Animal {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
-
+    @OneToOne(mappedBy = "animal")
+    private Image image;
 }
