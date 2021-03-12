@@ -38,12 +38,6 @@ public class DataMapper {
     }
 
     public static AnimalInfoDto animalToAnimalDto(Animal animal, Long id) {
-        Image image = animal.getImage();
-        if (image == null) {
-            animal.setImage(null);
-        } else {
-            animal.setImage(animal.getImage());
-        }
         return AnimalInfoDto.builder()
                 .id(id)
                 .name(animal.getName())

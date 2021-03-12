@@ -94,18 +94,19 @@ public class AnimalService {
         return new ResponseEntity<>("Failure", HttpStatus.BAD_REQUEST);
     }
 
-    private User getAuthorizationUser() {
-        org.springframework.security.core.userdetails.User principal =
-                (org.springframework.security.core.userdetails.User)
-                        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<User> existUser = userRepository.findByEmail(principal.getUsername());
-        return existUser.orElse(null);
-    }
-
     public AnimalInfoDto getAnimal() {
         User authorizationUser = getAuthorizationUser();
         Animal existAnimal = getExistAnimal(authorizationUser.getId());
         return animalToAnimalDto(existAnimal, authorizationUser.getId());
+    }
+
+    public ResponseEntity<?> getImage() {
+        Long id = getAuthorizationUser().getId();
+        Optional<Image> image = imageRepository.findById(id);
+        if (image.isPresent()) {
+            return ResponseEntity.ok().body(image);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(image);
     }
 
     public Animal getExistAnimal(Long id) {
@@ -116,5 +117,13 @@ public class AnimalService {
     public List<AnimalInfoDto> getAnimalList(Long userId) {
         List<Animal> exist = animalRepository.findByUserId(userId);
         return listAnimalToListAnimalInfoDto(exist);
+    }
+
+    private User getAuthorizationUser() {
+        org.springframework.security.core.userdetails.User principal =
+                (org.springframework.security.core.userdetails.User)
+                        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> existUser = userRepository.findByEmail(principal.getUsername());
+        return existUser.orElse(null);
     }
 }
