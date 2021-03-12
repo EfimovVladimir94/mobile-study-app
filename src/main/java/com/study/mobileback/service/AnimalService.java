@@ -104,7 +104,7 @@ public class AnimalService {
         Long id = getAuthorizationUser().getId();
         Optional<Image> image = imageRepository.findById(id);
         if (image.isPresent()) {
-            return ResponseEntity.ok().body(image);
+            return ResponseEntity.ok().body(image.get().getBytes());
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(image);
     }
