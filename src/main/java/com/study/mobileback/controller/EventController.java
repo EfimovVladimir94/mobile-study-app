@@ -1,6 +1,5 @@
 package com.study.mobileback.controller;
 
-import com.study.mobileback.dto.EventInfoDto;
 import com.study.mobileback.dto.EventMapMarkDto;
 import com.study.mobileback.service.EventService;
 import lombok.AllArgsConstructor;
@@ -20,8 +19,7 @@ public class EventController {
     @PostMapping(path = "/v1/saveEvent")
     public ResponseEntity<?> saveEvent(@RequestParam("event") String eventInfoDto,
                                        @RequestParam("file") MultipartFile file) {
-        eventService.saveEvent(eventInfoDto, file);
-        return new ResponseEntity<>("Success", HttpStatus.OK);
+        return eventService.saveEvent(eventInfoDto, file);
     }
 
     @DeleteMapping(value = "/v1/event/{id}")
@@ -38,7 +36,6 @@ public class EventController {
 
     @GetMapping(path = "/v1/event")
     public ResponseEntity<?> getEvent(@RequestParam Long id) {
-        EventInfoDto event = eventService.findEvent(id);
-        return new ResponseEntity<>(event, HttpStatus.OK);
+        return eventService.findEvent(id);
     }
 }

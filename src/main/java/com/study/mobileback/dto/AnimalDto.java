@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -29,8 +28,8 @@ public class AnimalDto {
     private String breed;
     private String gender;
     private String ownerName;
+    private String description;
     @NotBlank
     @NotEmpty
-    private String description;
     private String registrationDate;
 }

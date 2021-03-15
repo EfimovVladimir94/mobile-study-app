@@ -10,8 +10,6 @@ import java.util.List;
 
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
-    List<Animal> findByUserId(Long userId);
-
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("update Animal a set a.name = :name, a.city = :city, a.age = :age, a.breed = :breed, a.description = :description where a.id = :id")

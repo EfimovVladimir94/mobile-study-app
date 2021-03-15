@@ -1,16 +1,13 @@
 package com.study.mobileback.controller;
 
 import com.study.mobileback.dto.AnimalDto;
-import com.study.mobileback.dto.AnimalInfoDto;
 import com.study.mobileback.service.AnimalService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -31,14 +28,6 @@ public class AnimalController {
 
     @GetMapping(path = "/v1/animal")
     public ResponseEntity<?> getAnimal() {
-        AnimalInfoDto animal = animalService.getAnimal();
-        return new ResponseEntity<>(animal, HttpStatus.OK);
-    }
-
-    //не используется
-    @GetMapping(path = "/v1/animalList")
-    public ResponseEntity<?> getAnimalList(@RequestParam Long userId) {
-        List<AnimalInfoDto> animalList = animalService.getAnimalList(userId);
-        return new ResponseEntity<>(animalList, HttpStatus.OK);
+        return animalService.getAnimal();
     }
 }

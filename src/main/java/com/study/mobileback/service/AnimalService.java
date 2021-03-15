@@ -94,10 +94,14 @@ public class AnimalService {
         return new ResponseEntity<>("Failure", HttpStatus.BAD_REQUEST);
     }
 
-    public AnimalInfoDto getAnimal() {
+    public ResponseEntity<?> getAnimal() {
         User authorizationUser = getAuthorizationUser();
         Animal existAnimal = getExistAnimal(authorizationUser.getId());
-        return animalToAnimalDto(existAnimal, authorizationUser.getId());
+        if (existAnimal == null) {
+            return new ResponseEntity<>("Failure", HttpStatus.BAD_REQUEST);
+        }
+        AnimalInfoDto animalInfoDto = animalToAnimalDto(existAnimal, authorizationUser.getId());
+        return new ResponseEntity<>(animalInfoDto, HttpStatus.OK);
     }
 
     public ResponseEntity<?> getImage() {
@@ -112,11 +116,6 @@ public class AnimalService {
     public Animal getExistAnimal(Long id) {
         Optional<Animal> exist = animalRepository.findById(id);
         return exist.orElse(null);
-    }
-
-    public List<AnimalInfoDto> getAnimalList(Long userId) {
-        List<Animal> exist = animalRepository.findByUserId(userId);
-        return listAnimalToListAnimalInfoDto(exist);
     }
 
     private User getAuthorizationUser() {
