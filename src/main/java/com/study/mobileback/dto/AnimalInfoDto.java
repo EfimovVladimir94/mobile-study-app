@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -25,11 +26,14 @@ public class AnimalInfoDto {
     private String city;
     @NotNull
     private Integer age;
-    //TODO: добавить изображение
     @NotBlank
     @NotEmpty
     private String breed;
+    private String gender;
+    private String ownerName;
     @NotBlank
     @NotEmpty
     private String description;
+    private LocalDate registrationDate;
+    private byte[] image;
 }

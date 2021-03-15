@@ -4,33 +4,27 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AnimalDto {
+public class EventDto {
 
+    private Long id;
     @NotBlank
     @NotEmpty
     private String name;
     @NotBlank
     @NotEmpty
-    private String city;
-    @NotNull
-    private Integer age;
-    @NotBlank
-    @NotEmpty
-    private String breed;
-    private String gender;
-    private String ownerName;
-    @NotBlank
-    @NotEmpty
+    private String eventType;
+    @Length(max = 255, message = "Описание не может превышать более 255 символов")
     private String description;
-    private String registrationDate;
+    private LocationDto location;
+    private byte[] image;
 }

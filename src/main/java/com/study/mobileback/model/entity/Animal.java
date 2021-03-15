@@ -3,6 +3,7 @@ package com.study.mobileback.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -10,22 +11,23 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "animal")
 public class Animal {
 
     @Id
-    @GeneratedValue
+    @Column(name = "animal_id")
     private Long id;
     private String name;
     private String city;
     private Integer age;
-    //TODO: добавить изображение
-    //https://stackoverflow.com/questions/54500/storing-images-in-postgresql
-    private byte[] image;
     private String breed;
     private String description;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    private String gender;
+    private String ownerName;
+    private LocalDate registrationDate;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private User user;
-
+    @OneToOne(mappedBy = "animal")
+    private Image image;
 }

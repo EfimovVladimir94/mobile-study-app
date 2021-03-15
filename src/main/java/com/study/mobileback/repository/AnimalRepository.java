@@ -17,5 +17,8 @@ public interface AnimalRepository extends JpaRepository<Animal, Long> {
     @Query("update Animal a set a.name = :name, a.city = :city, a.age = :age, a.breed = :breed, a.description = :description where a.id = :id")
     void update(String name, String city, Integer age, String breed, String description, Long id);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query("delete from Animal a where a.id= :id")
     void deleteById(Long id);
 }

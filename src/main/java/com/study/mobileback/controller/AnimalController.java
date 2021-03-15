@@ -19,30 +19,23 @@ public class AnimalController {
 
     private final AnimalService animalService;
 
-    @PostMapping(path = "/v1/saveAnimal")
-    public ResponseEntity<?> saveAnimal(@Valid @RequestBody AnimalDto animalDto) {
-        animalService.saveAnimal(animalDto);
-        return new ResponseEntity<>("Success", HttpStatus.OK);
+    @PostMapping(path = "/v1/animal")
+    public ResponseEntity<?> saveOrUpdate(@Valid @RequestBody AnimalDto animalDto) {
+        return animalService.saveOrUpdateInfo(animalDto);
     }
 
-    @PostMapping(path = "/v1/editAnimal")
-    public ResponseEntity<?> editAnimal(@Valid @RequestBody AnimalDto animalDto) {
-        boolean updated = animalService.editAnimal(animalDto);
-        return new ResponseEntity<>(updated, HttpStatus.OK);
-    }
-
-    @DeleteMapping(value = "/v1/animal/{id}")
-    public ResponseEntity<?> deleteAnimal(@PathVariable Long id, @RequestParam Long userId) {
-        boolean deleted = animalService.deleteAnimal(id, userId);
-        return new ResponseEntity<>(deleted, HttpStatus.OK);
+    @DeleteMapping(value = "/v1/animal")
+    public ResponseEntity<?> deleteAnimal() {
+        return animalService.deleteAnimal();
     }
 
     @GetMapping(path = "/v1/animal")
-    public ResponseEntity<?> getAnimal(@RequestParam Long id) {
-        AnimalInfoDto animal = animalService.getAnimal(id);
+    public ResponseEntity<?> getAnimal() {
+        AnimalInfoDto animal = animalService.getAnimal();
         return new ResponseEntity<>(animal, HttpStatus.OK);
     }
 
+    //не используется
     @GetMapping(path = "/v1/animalList")
     public ResponseEntity<?> getAnimalList(@RequestParam Long userId) {
         List<AnimalInfoDto> animalList = animalService.getAnimalList(userId);

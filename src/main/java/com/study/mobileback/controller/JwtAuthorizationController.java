@@ -3,9 +3,9 @@ package com.study.mobileback.controller;
 
 import com.study.mobileback.config.JwtTokenUtil;
 import com.study.mobileback.dto.UserDto;
-import com.study.mobileback.model.JwtResponse;
 import com.study.mobileback.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,6 +13,9 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -28,14 +31,16 @@ public class JwtAuthorizationController {
     private JwtUserDetailsService userDetailsService;
 
     @RequestMapping(value = "/v1/authorization", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthorizationToken(@RequestBody UserDto userDto) throws Exception {
+    public Map<String, String> createAuthorizationToken(@RequestBody UserDto userDto) throws Exception {
 
         authenticate(userDto.getEmail(), userDto.getPassword());
 
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(userDto.getEmail());
-        JwtResponse authorizationUser = jwtTokenUtil.createAuthorizationUser(userDetails);
-        return ResponseEntity.ok(new JwtResponse(authorizationUser.getJwttoken(), authorizationUser.getUserId()));
+        String authorizationToken = jwtTokenUtil.createAuthorizationUser(userDetails);
+        Map<String, String> auth = new HashMap<>();
+        auth.put("authToken", authorizationToken);
+        return auth;
     }
 
     private void authenticate(String username, String password) throws Exception {
