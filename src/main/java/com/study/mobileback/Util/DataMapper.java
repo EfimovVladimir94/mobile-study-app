@@ -51,19 +51,6 @@ public class DataMapper {
                 .build();
     }
 
-    public static List<AnimalInfoDto> listAnimalToListAnimalInfoDto(List<Animal> animal) {
-        return animal.stream()
-                .map(x -> AnimalInfoDto.builder()
-                        .id(x.getId())
-                        .name(x.getName())
-                        .city(x.getCity())
-                        .age(x.getAge())
-                        .breed(x.getBreed())
-                        .description(x.getDescription())
-                        .build())
-                .collect(Collectors.toList());
-    }
-
     public static Event eventDtoToEvent(String payload, byte[] file) {
        EventInfoDto eventInfoDto =  parseEventSaveRequest(payload);
         Event newEvent = Event.builder()

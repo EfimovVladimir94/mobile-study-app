@@ -4,7 +4,6 @@ import com.study.mobileback.dto.UserDto;
 import com.study.mobileback.model.entity.User;
 import com.study.mobileback.service.UserRegistrationService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +22,7 @@ public class UserMainController {
 
     @PostMapping(path = "/v1/recovery")
     public ResponseEntity<?> recoveryPassword(@RequestBody UserDto userDto) {
-        boolean recoveryResult = userRegistrationService.recovery(userDto);
-        return new ResponseEntity<>(recoveryResult, HttpStatus.OK);
+        return userRegistrationService.recovery(userDto);
     }
 
     @GetMapping(path = "/v1/email")
